@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConsoleApp2
 {
@@ -11,15 +7,23 @@ namespace ConsoleApp2
         // Шаблонный метод
         public void PrepareRecipe()
         {
-            BoilWater();
+            if (NeedBoilWater())
+                BoilWater();
+
             Brew();
+            AddIce();      
             PourInCup();
             AddCondiments();
         }
 
         protected abstract void Brew();
-
         protected abstract void AddCondiments();
+
+        protected virtual bool NeedBoilWater() => true;
+
+        protected virtual void AddIce() { }
+
+        protected virtual string VesselName => "чашку";
 
         private void BoilWater()
         {
@@ -28,7 +32,7 @@ namespace ConsoleApp2
 
         private void PourInCup()
         {
-            Console.WriteLine("Напиток налит в чашку");
+            Console.WriteLine($"Напиток налит в {VesselName}");
         }
     }
 }
